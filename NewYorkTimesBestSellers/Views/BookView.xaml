@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="NewYorkTimesBestSellers.Views.BookView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NewYorkTimesBestSellers.Views"
+             xmlns:viewmodel="clr-namespace:NewYorkTimesBestSellers.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance d:Type=viewmodel:BookViewModel}"
+             d:DesignHeight="500" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style TargetType="DataGridCell">
+            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},Path=Content.Text}"/>
+        </Style>
+    </UserControl.Resources>
+
+   <Grid>
+       
+        <StackPanel Height="30" VerticalAlignment="Top">
+            <TextBlock VerticalAlignment="Top" 
+                       HorizontalAlignment="Center" 
+                       Text="Best Seller Books"
+                       FontSize="16"
+                       FontWeight="Bold"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="5,30,5,400" VerticalAlignment="Top">
+            <Button x:Name="btnGetBooksFromAPI" 
+                Command="{Binding SeeLatestButtonCommand}" 
+                Content="Show Latest"
+                Width="80"
+                Margin="5"/>
+            <Button x:Name="btnGetBooksFromFile" 
+                Command="{Binding SeeFromFileButtonCommand}"  
+                Content="Show From File"   
+                Width="100"
+                Margin="5"/>
+
+            <Label x:Name="filterLabel" 
+                    Content="Filter" 
+                    HorizontalAlignment="Right"
+                    Height="40" Margin="5"
+                    VerticalAlignment="Top" 
+                    Width="40"/>
+
+            <TextBox x:Name="filterText" 
+                    HorizontalAlignment="Left"
+                    Height="40" Margin="5" 
+                    TextWrapping="Wrap" 
+                    Text="{Binding Path=FilterBookName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    VerticalAlignment="Top" 
+                    Width="135" 
+                    Background="LightGray"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dataGridBooks"
+                ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                ItemsSource="{Binding FilteredBooks}" 
+                SelectedItem="{Binding MySelectedBook, Mode=OneWayToSource}" 
+                Margin="5,90,5,55" 
+                AutoGenerateColumns="False" 
+                IsReadOnly="True">
+
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftClick" 
+                              Command="{Binding MouseClickCommand}" />
+            </DataGrid.InputBindings>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Serial" Width="40" 
+                                    Binding="{Binding rank}"/>
+                <DataGridTextColumn Header="Book Title" Width="100" 
+                                    Binding="{Binding title}"/>
+                <DataGridTextColumn Header="Author" Width="100" 
+                                    Binding="{Binding author}"/>
+                <DataGridTextColumn Header="Publisher" Width="100" 
+                                    Binding="{Binding publisher}"/>
+                <DataGridTemplateColumn Header="Buy Link" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center">
+                        <Hyperlink NavigateUri="{Binding amazon_product_url}">
+                            <Underline>
+                                <TextBlock Text="Buy" />
+                            </Underline>
+                        </Hyperlink>
+                             </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <StackPanel Margin="5,440,5,5">
+            <Button x:Name="btnSaveBookList" 
+                    HorizontalAlignment="Right"
+                    Command="{Binding SaveFileButtonCommand}" 
+                    Content="Save File" 
+                    Height="30"
+                    Margin="5"/>
+        </StackPanel>
+   </Grid>
+  
+</UserControl>
