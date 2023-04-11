@@ -1,0 +1,10 @@
+﻿<prism:PrismApplication x:Class="NYTimesBestSeller_Prism_.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:dry="clr-namespace:DryIoc;assembly=DryIoc"
+             xmlns:local="clr-namespace:NYTimesBestSeller_Prism_">
+    <Application.Resources>
+         
+    </Application.Resources>
+</prism:PrismApplication>

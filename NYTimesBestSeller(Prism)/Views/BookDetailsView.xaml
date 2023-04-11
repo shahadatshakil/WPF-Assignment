@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="NYTimesBestSeller_Prism_.Views.BookDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NYTimesBestSeller_Prism_.Views"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="10,0,10,10">
+
+        <StackPanel DataContext="{Binding SelectedBook}">
+
+            <TextBlock Text="Book Details" 
+                       FontSize="16" 
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"/>
+
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Book Name:"
+                           FontStyle="Italic"/>
+                <TextBlock Text="{Binding title}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Author Name:"
+                           FontStyle="Italic"/>
+                <TextBlock Text="{Binding author}"/>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Publisher Name:"
+                           FontStyle="Italic"/>
+                <TextBlock Text="{Binding publisher}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="Auto">
+                <TextBlock Text="Description:" 
+                           FontStyle="Italic"/>
+                <TextBlock Text="{Binding description}"
+                           Width="310"
+                           TextWrapping="WrapWithOverflow"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Buy Link:" 
+                           FontStyle="Italic"/>
+                <TextBlock Foreground="Blue"
+                           TextDecorations="Underline"
+                           TextWrapping="Wrap"
+                           Width="310">
+                    <Hyperlink NavigateUri="{Binding amazon_product_url}"> Buy Book</Hyperlink>
+                </TextBlock>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Height="40">
+                <TextBlock Text="Book Link:" 
+                       FontStyle="Italic"/>
+
+                <TextBlock Foreground="Blue" 
+                       TextDecorations="Underline" 
+                       TextWrapping="Wrap"
+                       Width="310">
+                    <Hyperlink NavigateUri="{Binding book_uri}"> View Book</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+    
+</UserControl>
